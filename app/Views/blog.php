@@ -1,13 +1,17 @@
+<?= $this->extend('layouts/main') ?>
 
+
+<?= $this->section('content') ?>
 <h1><?= $title ?></h1>
 
-<div>
-
-<?php foreach($posts as $post) :?>
-<div>
-    <h3><?= $post ?> </h3>
-    <img src="/assets/images/avatar.jpeg" style="width:200px" alt="">
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi aut provident ratione nesciunt asperiores suscipit quasi aspernatur, necessitatibus, eveniet maiores, minus cumque a. Recusandae debitis neque ullam qui quam rem.</p>
+<div class="row">
+    <?= $this->include('partials/sidebar') ?>
+    <div class="col-12 col-sm-9">
+        <div class="row">
+        <?php foreach ($posts as $post) : ?>
+            <?= view_cell('\App\Libraries\Blog::postItem', ['title' => $post]) ?>
+        <?php endforeach; ?>
+        </div>
+    </div>
 </div>
-<?php endforeach; ?>
-</div>
+<?= $this->endSection() ?>
