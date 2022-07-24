@@ -11,6 +11,6 @@ class Transactions extends BaseController
         $db = db_connect();
         $model = new CustomModel($db);
 
-        
+        $model ->createUser();
     }
 }

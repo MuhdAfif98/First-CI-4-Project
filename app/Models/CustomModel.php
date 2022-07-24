@@ -106,7 +106,39 @@ class CustomModel
         if ($limit)
             $builder->limit($limit);
         $posts = $builder->get()->getResult();
-        
+
         return $posts;
+    }
+
+    function createUser()
+    {
+        $rand = rand(0, 10000);
+
+        $this->db->transStart();
+        $data = [
+            'email' => 'test' . $rand . '@test.com',
+            'password' => sha1(time() . '' . $rand)
+        ];
+
+        $builder = $this->db->table('users');
+        $builder->insert($data);
+        $id = $this->db->insertID();
+
+        $postData = [
+            'post_title' => 'Test title' . $rand,
+            'post_content' => 'Post description',
+            'post_author' => $id,
+        ];
+
+        $builder = $this->db->table('posts');
+        $builder->insert($postData);
+
+        $this->db->setDatabase('dingofood');
+        $builder = $this->db->table('users');
+        $builder->insert($data);
+        $id = $this->db->insertID();
+        
+        $this->db->transComplete();
+
     }
 }
