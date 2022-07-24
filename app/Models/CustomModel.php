@@ -114,7 +114,7 @@ class CustomModel
     {
         $rand = rand(0, 10000);
 
-        $this->db->transStart();
+        $this->db->transBegin();
         $data = [
             'email' => 'test' . $rand . '@test.com',
             'password' => sha1(time() . '' . $rand)
@@ -137,7 +137,7 @@ class CustomModel
         $builder = $this->db->table('users');
         $builder->insert($data);
         $id = $this->db->insertID();
-        
+
         $this->db->transComplete();
 
     }
