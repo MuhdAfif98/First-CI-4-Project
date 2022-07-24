@@ -16,19 +16,19 @@
                 <?= $validation->listErrors() ?>
             </div>
         <?php endif; ?>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input name="email" value="<?= set_value('email') ?>" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
 
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input name="password" value="<?= set_value('password') ?>" type="password" class="form-control" id="exampleInputPassword1">
             </div>
 
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="exampleInputPassword1" class="form-label">Category</label>
                 <select name="category" class="form-control">
                     <?php foreach ($categories as $cat) : ?>
@@ -37,15 +37,21 @@
                 </select>
             </div>
 
-            <div class="mb-3">
+            <div class="form-group">
                 <label for="date" class="form-label">Date</label>
                 <input name="date" value="<?= set_value('date') ?>" type="date" class="form-control" id="exampleInputPassword1">
             </div>
+            &nbsp;
+            <div class="form-group">
+                <label for="exampleFormControlFile1" class="form-label">Upload File</label>
+                <input type="file" multiple name="theFile[]" id="" class="form-control-file">
+            </div>
+
 
             <?php
-                echo '<pre>';
-                print_r($_POST);
-                echo '</pre>'
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>'
             ?>
 
             <button type="submit" class="btn btn-primary">Submit</button>

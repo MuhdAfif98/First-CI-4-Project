@@ -59,7 +59,7 @@ class CustomModel
     {
         return $this->db->table('posts')
             ->groupStart()
-            ->where(['post_id >'=> 25, 'post_created_at <' => '1990-01-01 00:00:00'])
+            ->where(['post_id >' => 25, 'post_created_at <' => '1990-01-01 00:00:00'])
             ->groupEnd()
             ->orWhere('post_author', 10)
             ->join('users', 'posts.post_author = users.user_id')
@@ -69,10 +69,10 @@ class CustomModel
 
     function wherein()
     {
-        $emails = ["ressie59@example.org","chandler.abbott@example.com","jtorp@example.net"];
+        $emails = ["ressie59@example.org", "chandler.abbott@example.com", "jtorp@example.net"];
         return $this->db->table('posts')
             ->groupStart()
-            ->where(['post_id >'=> 25, 'post_created_at <' => '1990-01-01 00:00:00'])
+            ->where(['post_id >' => 25, 'post_created_at <' => '1990-01-01 00:00:00'])
             ->groupEnd()
             ->orWhereIn('email', $emails)
             ->join('users', 'posts.post_author = users.user_id')
@@ -86,6 +86,27 @@ class CustomModel
         $builder = $this->db->table('posts');
         $builder->join('users', 'posts.post_author = users.user_id');
         $posts = $builder->get()->getResult();
+        return $posts;
+    }
+
+    function getUsers($limit = false)
+    {
+        $builder = $this->db->table('users');
+        if ($limit)
+            $builder->limit($limit);
+        $posts = $builder->get()->getResult();
+        return $posts;
+    }
+
+    function getAnotherUsers($limit = false)
+    {
+
+        $this->db->setDatabase('dingofood');
+        $builder = $this->db->table('users');
+        if ($limit)
+            $builder->limit($limit);
+        $posts = $builder->get()->getResult();
+        
         return $posts;
     }
 }
